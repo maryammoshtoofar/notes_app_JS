@@ -2,13 +2,12 @@ const noNotes = document.querySelector(".no-notes");
 const cardsContainer = document.querySelector(".cards");
 const generateNotes = (notes) => {
   notes.forEach((note) => {
-    console.log("note", note);
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
         <h6 class="card-title">
             ${note.title}
-            <i class="fa-solid fa-xmark delete"></i>
+            <i class="fa-solid fa-xmark delete" onclick="deleteNote(${note.id})"></i>
         </h6>
         <p class="card-text">
         ${note.text}
@@ -17,7 +16,18 @@ const generateNotes = (notes) => {
     cardsContainer.append(card);
   });
 };
+
+const deleteNote = (id) => {
+  const notes = JSON.parse(localStorage.getItem("notes"));
+  const updatedNotes = notes.filter((note) => note.id != id);
+  localStorage.removeItem("notes");
+  if (updatedNotes.length > 0) {
+    localStorage.setItem("notes", JSON.stringify(updatedNotes));
+  }
+  init();
+};
 const init = () => {
+  cardsContainer.innerHTML = "";
   const hasLocalStorage = localStorage.getItem("notes");
   noNotes.style.display = hasLocalStorage ? "none" : "block";
   const notes = hasLocalStorage
