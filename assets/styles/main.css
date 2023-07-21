@@ -1,5 +1,6 @@
 @import "./reset.css";
 @import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css");
 :root {
   /* colors */
   --primary: #cfff47;
